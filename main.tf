@@ -1,5 +1,6 @@
 provider "google" {
-  credentials = jsondecode(base64decode(var.gcp_credentials))
+  //credentials = jsondecode(base64decode(var.gcp_credentials))
+  credentials = var.gcp_credentials
   project     = var.project
   region      = var.region
   zone        = var.zone
