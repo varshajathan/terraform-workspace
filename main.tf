@@ -1,33 +1,25 @@
-
 provider "google" {
-  project     = "gcp-labs-2024"
-  region      = "us-central1"
+  credentials = jsondecode(base64decode(var.gcp_credentials))
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
 }
 
-resource "google_compute_instance" "default" {
-  name         = "my-instance"
-  machine_type = "n2-standard-2"
-  zone        = "us-central1-c"
-
+resource "google_compute_instance" "vm_instance" {
+  name         = "terraform-vm"
+  machine_type = "e2-micro"
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
-      labels = {
-        my_label = "value"
-      }
     }
-  }
-
-    provisioner "local-exec" {
-    command = "gcloud compute instances create my-instance-2 --zone us-central1-c"
   }
 
   network_interface {
     network = "default"
-
-    access_config {
-      // Ephemeral public IP
-    }
+    access_config {}
   }
+
+  tags = ["web"]
 }
