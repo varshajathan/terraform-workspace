@@ -6,8 +6,8 @@ variable "gcp_credentials" {
 
 variable "project" {}
 variable "region" {
-  default = "us-central1"
+  default = "us-central1-a"
 }
 variable "zone" {
-  default = "us-central1"
+  default = "us-central1-a"
 }
